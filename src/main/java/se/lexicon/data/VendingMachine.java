@@ -1,7 +1,10 @@
 package se.lexicon.data;
 
 
+
 import se.lexicon.model.Product;
+
+
 
 public interface VendingMachine {
 
