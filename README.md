@@ -1,4 +1,4 @@
-<div align="center"> #Vending Machine </div>
+ #Vending Machine 
 ____________
 
 <div align="center"> Console application in Java </div>
