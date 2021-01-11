@@ -1,5 +1,6 @@
- #Vending Machine 
+ # Vending Machine 
 ____________
 
-<div align="center"> Console application in Java </div>
+Console application in Java 
+____________
 
