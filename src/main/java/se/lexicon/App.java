@@ -4,7 +4,6 @@ package se.lexicon;
 
 import se.lexicon.data.VendingMachine;
 import se.lexicon.data.VendingMachineImpl;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.Math.*;
@@ -17,7 +16,7 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(" ##### Vending Machine ##### ");
-        boolean good = false;
+        boolean checkBol = false;
         int moneyToAdd = 0;
         int changeBack = 0;
         String description = "";
@@ -36,18 +35,18 @@ public class App {
                     operationType = scanner.nextLine();
                     try {
                         Integer.parseInt(operationType);
-                        good = true;
+                        checkBol = true;
                     } catch(NumberFormatException e) {
                         System.out.println(" Not a valid number ");
                     } catch(NullPointerException e) {
                         System.out.println(" Please write a number ");
                     }
-                    if (good == true) {
+                    if (checkBol == true) {
                         moneyToAdd = Integer.parseInt(operationType);
                         System.out.println(" Adding " + moneyToAdd +
                                 " to the Vending Machine ");
                         vm.addCurrency(moneyToAdd);
-                        good = false;
+                        checkBol = false;
                     }
                     break;
 
