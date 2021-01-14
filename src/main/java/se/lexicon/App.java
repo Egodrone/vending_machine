@@ -91,10 +91,14 @@ public class App {
                     break;
 
                 case "6":
-                    String[] info = vm.getProducts();
-                    //System.out.println(Arrays.toString(info));
-                    for (String names : info) {
-                        System.out.println(names);
+                    if (vm.getProducts().length > 0) {
+                        String[] info = vm.getProducts();
+                        //System.out.println(Arrays.toString(info));
+                        for (String names : info) {
+                            System.out.println(names);
+                        }
+                    } else {
+                        System.out.println(" All products are sold out. ");
                     }
                     break;
 
