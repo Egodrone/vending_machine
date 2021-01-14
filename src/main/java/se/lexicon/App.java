@@ -70,7 +70,6 @@ public class App {
 
                         operationType = scanner.nextLine();
                         description = vm.getDescription(Integer.parseInt(operationType));
-                        // add validate int
                         System.out.println(description);
                     } else {
                         System.out.println(" There are no products left to display. ");
@@ -80,14 +79,12 @@ public class App {
                 case "4":
                     System.out.printf(" Type in product number: \n ");
                     operationType = scanner.nextLine();
-                    // add restriction for the int
                     vm.request(Integer.parseInt(operationType));
                     break;
 
                 case "5":
                     // todo: Use a product
                     System.out.printf(" Use a product: \n ");
-                    //vm.
                     break;
 
                 case "6":
@@ -103,7 +100,6 @@ public class App {
                     break;
 
                 case "7":
-                    // Ends session, Returns change and resets the deposit pool.
                     changeBack = vm.endSession();
                     System.out.println(" Change back: " + changeBack);
                     break;
