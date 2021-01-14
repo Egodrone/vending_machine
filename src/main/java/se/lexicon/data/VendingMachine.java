@@ -8,20 +8,32 @@ import se.lexicon.model.Product;
 
 public interface VendingMachine {
 
-    boolean addMoney(int money);
-
-    Product buy(int money, int prodNum);
-
-    int returnChange();
-
-    void presentProducts();
-
     int getBalance();
 
 
 
-    /*
-    default void addCurrency(int amount){
+    void addCurrency(int amount);
 
-    }*/
+
+
+    Product request(int productNumber);
+
+
+
+    int endSession();
+
+
+
+    String getDescription(int productNumber);
+
+
+
+    String [] getProducts ();
+
+
+
+    void display_menu();
+
+
+
 }

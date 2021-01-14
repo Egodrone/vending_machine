@@ -6,13 +6,44 @@ public class Snack extends Product {
 
     private int sugarPercent;
 
-    @Override
-    public Product purchase(int money) {
-        return null;
+
+
+    public Snack(int sugarPercent) {
+        this.sugarPercent = sugarPercent;
     }
+
+
+
+    public Snack(String name, int price, int sugarPercent) {
+        super(name, price);
+        this.sugarPercent = sugarPercent;
+    }
+
+
+
+    public int getSugarPercent() {
+        return sugarPercent;
+    }
+
+
+
+    public void setSugarPercent(int sugarPercent) {
+        this.sugarPercent = sugarPercent;
+    }
+
+
+
+    public String examine() {
+        return getName() + " " + getPrice() + " " + getSugarPercent();
+    }
+
+
 
     @Override
     public void use() {
-
+        System.out.println(" You just ate a snack: " + getName());
     }
+
+
+
 }

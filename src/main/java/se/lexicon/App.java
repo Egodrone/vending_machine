@@ -5,6 +5,7 @@ package se.lexicon;
 import se.lexicon.data.VendingMachine;
 import se.lexicon.data.VendingMachineImpl;
 
+import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.Math.*;
 
@@ -12,44 +13,108 @@ import java.lang.Math.*;
 
 public class App {
 
+
+
     public static void main(String[] args) {
         System.out.println(" ##### Vending Machine ##### ");
+        boolean good = false;
+        int moneyToAdd = 0;
+        int changeBack = 0;
+        String description = "";
+        String operationType = "";
         VendingMachine vm = new VendingMachineImpl();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(" Enter a valid operation: ");
-        String operationType = "";
-
         while(true) {
-            System.out.println(" Type e to exit ");
+            vm.display_menu();
             operationType = scanner.nextLine();
-            System.out.println(operationType);
 
             switch (operationType) {
                 case "1":
-                    // todo:
-                    System.out.printf("a");
+                    // Add money
+                    System.out.printf(" How much do you want to add: \n ");
+                    operationType = scanner.nextLine();
+                    try {
+                        Integer.parseInt(operationType);
+                        good = true;
+                    } catch(NumberFormatException e) {
+                        System.out.println(" Not a valid number ");
+                    } catch(NullPointerException e) {
+                        System.out.println(" Please write a number ");
+                    }
+                    if (good == true) {
+                        moneyToAdd = Integer.parseInt(operationType);
+                        System.out.println(" Adding " + moneyToAdd +
+                                " to the Vending Machine ");
+                        vm.addCurrency(moneyToAdd);
+                        good = false;
+                    }
                     break;
+
                 case "2":
-                    // todo:
-                    System.out.printf("b");
+                    // Display current balance
+                    if (vm.getBalance() != 0) {
+                        System.out.println(" Your balance: " + vm.getBalance());
+                    } else {
+                        System.out.println(" You don't have any money,\n " +
+                                "Please add by typing in 1 and amount ");
+                    }
                     break;
+
                 case "3":
-                    // todo:
-                    System.out.printf("c");
+                    System.out.printf(" Please type in a number for the description \n ");
+                    if (vm.getProducts().length > 0) {
+                        System.out.println(" Available values are from : ");
+                        System.out.print(" 0 to ");
+                        System.out.print(vm.getProducts().length - 1 + " \n ");
+
+                        operationType = scanner.nextLine();
+                        description = vm.getDescription(Integer.parseInt(operationType));
+                        // add validate int
+                        System.out.println(description);
+                    } else {
+                        System.out.println(" There are no products left to display. ");
+                    }
                     break;
+
                 case "4":
-                    // todo:
-                    System.out.printf("d");
+                    System.out.printf(" Type in product number: \n ");
+                    operationType = scanner.nextLine();
+                    // add restriction for the int
+                    vm.request(Integer.parseInt(operationType));
                     break;
+
+                case "5":
+                    // todo: Use a product
+                    System.out.printf(" Use a product: \n ");
+                    //vm.
+                    break;
+
+                case "6":
+                    String[] info = vm.getProducts();
+                    //System.out.println(Arrays.toString(info));
+                    for (String names : info) {
+                        System.out.println(names);
+                    }
+                    break;
+
+                case "7":
+                    // Ends session, Returns change and resets the deposit pool.
+                    changeBack = vm.endSession();
+                    System.out.println(" Change back: " + changeBack);
+                    break;
+
                 case "e":
-                    // todo: call exist method or stop application
+                    System.out.println(" Thanks for using this Vending Machine! \n");
                     System.exit(0);
                     break;
+
                 default:
-                    System.out.println(" operation is not valid ");
+                    System.out.println(" \n Operation is not valid! \n ");
             }
+
         }
+
     }
 
 
