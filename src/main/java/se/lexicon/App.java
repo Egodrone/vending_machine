@@ -24,7 +24,7 @@ public class App {
 
         VendingMachine vm = new VendingMachineImpl();
         Scanner scanner = new Scanner(System.in);
-        Product[] boughtProducts = new Product[vm.getProducts().length];
+        int[] boughtProducts = new int[vm.getProducts().length];
 
 
         while(true) {
@@ -86,9 +86,10 @@ public class App {
                         System.out.println(" Type in product number: ");
                         operationType = scanner.nextLine();
                         //vm.request(Integer.parseInt(operationType));
-                        boughtProducts[countProducts] = vm.request(Integer.parseInt(operationType));
+                        vm.request(Integer.parseInt(operationType));
+                        boughtProducts[countProducts] = Integer.parseInt(operationType);
+                        countProducts++;
                         System.out.println(boughtProducts[countProducts]);
-                        ++countProducts;
                     } else {
                         System.out.println(" All products are sold out! ");
                     }
@@ -103,8 +104,7 @@ public class App {
                         }
                         System.out.println(" Type in a product number that you want to use: ");
                         operationType = scanner.nextLine();
-                        //String usage = vm.use_product(Integer.parseInt(operationType));
-                        String usage = vm.use_product(1);
+                        String usage = vm.use_product(Integer.parseInt(operationType));
                         System.out.println(usage);
                     } else {
                         System.out.println(" You need to buy something before you can use it. ");
