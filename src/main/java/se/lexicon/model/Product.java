@@ -3,7 +3,7 @@ package se.lexicon.model;
 
 
 import java.util.Objects;
-import se.lexicon.model.Sequencer;
+
 
 
 public abstract class Product {
