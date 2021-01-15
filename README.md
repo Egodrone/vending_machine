@@ -15,3 +15,7 @@ ____________
 2) Imported it in Intellij IDEA or any other Java IDE.
 
 3) Run App.java
+
+
+## :droplet: Testing
+Test project with Junit
