@@ -8,6 +8,6 @@ import static org.junit.Assert.*;
 
 
 
-public class Drink {
+public class DrinkTest {
 
 }

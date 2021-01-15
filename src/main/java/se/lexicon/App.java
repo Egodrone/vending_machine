@@ -4,9 +4,8 @@ package se.lexicon;
 
 import se.lexicon.data.VendingMachine;
 import se.lexicon.data.VendingMachineImpl;
-import java.util.Arrays;
+import se.lexicon.model.Product;
 import java.util.Scanner;
-import java.lang.Math.*;
 
 
 
@@ -17,12 +16,16 @@ public class App {
     public static void main(String[] args) {
         System.out.println(" ##### Vending Machine ##### ");
         boolean checkBol = false;
-        int moneyToAdd = 0;
-        int changeBack = 0;
-        String description = "";
-        String operationType = "";
+        int countProducts = 0;
+        int moneyToAdd;
+        int changeBack;
+        String description;
+        String operationType;
+
         VendingMachine vm = new VendingMachineImpl();
         Scanner scanner = new Scanner(System.in);
+        Product[] boughtProducts = new Product[vm.getProducts().length];
+
 
         while(true) {
             vm.display_menu();
@@ -31,7 +34,7 @@ public class App {
             switch (operationType) {
                 case "1":
                     // Add money
-                    System.out.printf(" How much do you want to add: \n ");
+                    System.out.println(" How much do you want to add: ");
                     operationType = scanner.nextLine();
                     try {
                         Integer.parseInt(operationType);
@@ -41,7 +44,7 @@ public class App {
                     } catch(NullPointerException e) {
                         System.out.println(" Please write a number ");
                     }
-                    if (checkBol == true) {
+                    if (checkBol) {
                         moneyToAdd = Integer.parseInt(operationType);
                         System.out.println(" Adding " + moneyToAdd +
                                 " to the Vending Machine ");
@@ -61,11 +64,9 @@ public class App {
                     break;
 
                 case "3":
-                    System.out.printf(" Please type in a number for the description \n ");
+                    System.out.println(" Please type in a number for the description \n ");
                     if (vm.getProducts().length > 0) {
-                        System.out.println(" Available values are from : ");
-                        System.out.print(" 0 to ");
-                        System.out.print(vm.getProducts().length - 1 + " \n ");
+                        vm.displayAvaliableId();
 
                         operationType = scanner.nextLine();
                         description = vm.getDescription(Integer.parseInt(operationType));
@@ -76,20 +77,43 @@ public class App {
                     break;
 
                 case "4":
-                    System.out.printf(" Type in product number: \n ");
-                    operationType = scanner.nextLine();
-                    vm.request(Integer.parseInt(operationType));
+                    // Buy a product
+                    if (vm.getProducts().length > 0) {
+                        System.out.println(" You can choose from: ");
+                        for (int i = 0; i < vm.getProducts().length; i++) {
+                            System.out.print(vm.getProducts()[i] + " \n ");
+                        }
+                        System.out.println(" Type in product number: ");
+                        operationType = scanner.nextLine();
+                        //vm.request(Integer.parseInt(operationType));
+                        boughtProducts[countProducts] = vm.request(Integer.parseInt(operationType));
+                        System.out.println(boughtProducts[countProducts]);
+                        ++countProducts;
+                    } else {
+                        System.out.println(" All products are sold out! ");
+                    }
                     break;
 
                 case "5":
                     // todo: Use a product
-                    System.out.printf(" Use a product: \n ");
+                    if (boughtProducts.length > 0) {
+                        System.out.println(" Products you bought: \n ");
+                        for (int i = 0; i < boughtProducts.length; i++) {
+                            System.out.println(boughtProducts[i]);
+                        }
+                        System.out.println(" Type in a product number that you want to use: ");
+                        operationType = scanner.nextLine();
+                        //String usage = vm.use_product(Integer.parseInt(operationType));
+                        String usage = vm.use_product(1);
+                        System.out.println(usage);
+                    } else {
+                        System.out.println(" You need to buy something before you can use it. ");
+                    }
                     break;
 
                 case "6":
                     if (vm.getProducts().length > 0) {
                         String[] info = vm.getProducts();
-                        //System.out.println(Arrays.toString(info));
                         for (String names : info) {
                             System.out.println(names);
                         }

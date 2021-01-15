@@ -40,8 +40,8 @@ public class Food extends Product {
 
 
     @Override
-    public void use() {
-        System.out.println(" Have a nice meal eating " + getName());
+    public String use() {
+        return " Have a nice meal eating " + getName();
     }
 
 

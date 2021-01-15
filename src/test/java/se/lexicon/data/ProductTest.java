@@ -1,4 +1,4 @@
-package se.lexicon.model;
+package se.lexicon.data;
 
 
 
@@ -8,6 +8,6 @@ import static org.junit.Assert.*;
 
 
 
-public class Product {
+public class ProductTest {
 
 }

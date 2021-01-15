@@ -11,7 +11,7 @@ import se.lexicon.model.Snack;
 
 public class VendingMachineImpl implements VendingMachine {
 
-    private int[] denominations = new int[] {1, 2, 5, 10, 20, 50, 100, 200, 500, 1000};
+    private final int[] denominations = new int[]{1, 2, 5, 10, 20, 50, 100, 200, 500, 1000};
     private Product[] products;
     int moneyPool;
 
@@ -82,42 +82,46 @@ public class VendingMachineImpl implements VendingMachine {
 
 
 
+    public String use_product(int productNumber) {
+        return products[productNumber].use();
+    }
+
+
+
     @Override
     public Product request(int productNumber) {
         int tmp = 0;
         boolean check = false;
 
-        for (int i = 0; i < products.length; i++) {
-            if (products[i].getName() != null) {
-                if (i == productNumber) {
-                    // check so there is enough money in the moneyPool
-                    if (products[i].getPrice() <= moneyPool) {
-                        tmp = i;
-                        // Adjust moneyPool
-                        check = true;
-                        moneyPool = moneyPool - products[i].getPrice();
-                    } else {
-                        System.out.println(" You don't have enough money to purchase the product ");
-                    }
-                    break;
+        for (Product pd : products) {
+            if (pd.getProductNumber() == productNumber) {
+                if (pd.getPrice() <= moneyPool) {
+                    tmp = productNumber;
+                    // Adjust moneyPool
+                    check = true;
+                    moneyPool = moneyPool - pd.getPrice();
+                } else {
+                    System.out.println(" You don't have enough money to purchase the product ");
                 }
+                break;
             }
         }
 
         if (check) {
             Product[] tmpArr = new Product[products.length - 1];
-
             for (int i = 0, j = 0; i < products.length; i++) {
-                if (i == tmp) {
+                if (products[i].getProductNumber() == tmp) {
+                    System.out.println(" You just bought a " + products[i].getName());
                     continue;
                 }
+                System.out.println(i);
                 tmpArr[j++] = products[i];
             }
+
             products = tmpArr;
-            System.out.println(" You just bought a " + products[productNumber]);
         }
+
         return null;
-        //return products;
     }
 
 
@@ -139,7 +143,7 @@ public class VendingMachineImpl implements VendingMachine {
 
     @Override
     public String getDescription(int productNumber) {
-        return products[productNumber].examine();
+        return products[productNumber - 1].examine();
     }
 
 
@@ -149,10 +153,20 @@ public class VendingMachineImpl implements VendingMachine {
         String[] productNamesNumber = new String[products.length];
 
         for (int i = 0; i < products.length; i++) {
-            productNamesNumber[i] = "Product name: " + products[i].getName() + ", Product number: " + i;
+            productNamesNumber[i] = " Name: " + products[i].getName() + ", Number: " + products[i].getProductNumber();
         }
 
         return productNamesNumber;
+    }
+
+
+
+    @Override
+    public void displayAvaliableId() {
+        System.out.println(" Available values are from: ");
+        for (Product pd : products) {
+            System.out.print(pd.getProductNumber() + " ");
+        }
     }
 
 

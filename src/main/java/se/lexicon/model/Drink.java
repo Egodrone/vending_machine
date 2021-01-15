@@ -34,8 +34,8 @@ public class Drink extends Product {
 
 
     @Override
-    public void use() {
-        System.out.println(" You decided to drink: " + getName() + ". Enjoy! ");
+    public String use() {
+        return " You decided to drink: " + getName() + ". Enjoy! ";
     }
 
 

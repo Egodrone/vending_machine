@@ -1,4 +1,5 @@
-package se.lexicon.data;
+package se.lexicon.model;
+
 
 
 import org.junit.Before;
@@ -7,6 +8,6 @@ import static org.junit.Assert.*;
 
 
 
-public class VendingMachineImpl {
+public class SnackTest {
 
 }

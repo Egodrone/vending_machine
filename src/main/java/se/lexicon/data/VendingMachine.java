@@ -28,11 +28,18 @@ public interface VendingMachine {
 
 
 
-    String [] getProducts ();
+    String[] getProducts();
+
+
+    void displayAvaliableId();
 
 
 
     void display_menu();
+
+
+
+    String use_product(int productNumber);
 
 
 

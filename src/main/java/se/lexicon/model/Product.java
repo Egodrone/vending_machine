@@ -3,22 +3,25 @@ package se.lexicon.model;
 
 
 import java.util.Objects;
-
+import se.lexicon.model.Sequencer;
 
 
 public abstract class Product {
 
+    private int productNumber;
     private String name;
     private int price;
 
 
 
     public Product() {
+        productNumber = Sequencer.nextProductId();
     }
 
 
 
     public Product(String name, int price) {
+        this.productNumber = Sequencer.nextProductId();
         this.name = name;
         this.price = price;
     }
@@ -26,11 +29,11 @@ public abstract class Product {
 
 
     public String examine() {
-        return null;
+        return "Product information: ";
     }
 
 
-    public abstract void use();
+    public abstract String use();
 
 
 
@@ -56,6 +59,11 @@ public abstract class Product {
         this.price = price;
     }
 
+
+
+    public int getProductNumber() {
+        return productNumber;
+    }
 
 
     @Override
