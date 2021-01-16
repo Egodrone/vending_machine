@@ -24,7 +24,6 @@ public class VendingMachineImpl implements VendingMachine {
 
 
     public VendingMachineImpl() {
-        // add final sequencer for index
         products = new Product[3];
         products[0] = new Drink("Coke", 50, "50cl");
         products[1] = new Food("Pepperoni Pizza", 20, 250);
@@ -35,7 +34,7 @@ public class VendingMachineImpl implements VendingMachine {
 
     @Override
     public void display_menu() {
-        String menu = "1) Add money to the Vending Machine \n" +
+        String menu = " 1) Add money to the Vending Machine \n" +
                 " 2) Show current balance \n" +
                 " 3) Display description of the products \n" +
                 " 4) Purchase a product \n" +
@@ -83,7 +82,12 @@ public class VendingMachineImpl implements VendingMachine {
 
 
     public String use_product(int productNumber) {
-        return products[productNumber].use();
+        for (int i = 0; i < products.length; i++) {
+            if (products[i].getProductNumber() == productNumber) {
+                return products[i].use();
+            }
+        }
+        return "Invalid product number";
     }
 
 
@@ -92,12 +96,12 @@ public class VendingMachineImpl implements VendingMachine {
     public Product request(int productNumber) {
         int tmp = 0;
         boolean check = false;
+        Product[] tmpProduct = new Product[1];
 
         for (Product pd : products) {
             if (pd.getProductNumber() == productNumber) {
                 if (pd.getPrice() <= moneyPool) {
                     tmp = productNumber;
-                    // Adjust moneyPool
                     check = true;
                     moneyPool = moneyPool - pd.getPrice();
                 } else {
@@ -112,6 +116,8 @@ public class VendingMachineImpl implements VendingMachine {
             for (int i = 0, j = 0; i < products.length; i++) {
                 if (products[i].getProductNumber() == tmp) {
                     System.out.println(" You just bought a " + products[i].getName());
+                    tmpProduct[0] = products[i];
+                    //tmpProduct[0] = products[i] + ;
                     continue;
                 }
                 System.out.println(i);
@@ -119,6 +125,7 @@ public class VendingMachineImpl implements VendingMachine {
             }
 
             products = tmpArr;
+            return tmpProduct[0];
         }
 
         return null;
@@ -128,7 +135,6 @@ public class VendingMachineImpl implements VendingMachine {
 
     @Override
     public int endSession() {
-        // Return change to the customer
         int change = 0;
 
         if (getBalance() > 0) {
@@ -164,6 +170,7 @@ public class VendingMachineImpl implements VendingMachine {
     @Override
     public void displayAvaliableId() {
         System.out.println(" Available values are from: ");
+
         for (Product pd : products) {
             System.out.print(pd.getProductNumber() + " ");
         }
