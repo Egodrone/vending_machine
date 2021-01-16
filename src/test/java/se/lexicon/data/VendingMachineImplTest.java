@@ -1,8 +1,13 @@
 package se.lexicon.data;
 
 
+
 import org.junit.Before;
 import org.junit.Test;
+import se.lexicon.model.Drink;
+import se.lexicon.model.Food;
+import se.lexicon.model.Product;
+
 import static org.junit.Assert.*;
 
 
@@ -13,7 +18,6 @@ public class VendingMachineImplTest {
 
     @Before
     public void setup() {
-
     }
 
 
@@ -68,10 +72,45 @@ public class VendingMachineImplTest {
 
 
     @Test
-    public void test_use_product() {
-        VendingMachineImpl vm = new VendingMachineImpl();
-        String expected = " Have a nice meal eating " + "Pepperoni Pizza";
-        assertEquals(expected, vm.use_product(1));
+    public void test_name_number() {
+        Product[] productTest = new Product[2];
+        productTest[0] = new Drink("Coke", 50, "50cl");
+        productTest[1] = new Drink("Energy Drink", 50, "50cl");
+        VendingMachineImpl vz = new VendingMachineImpl(productTest);
+        String expected = " Name: Energy Drink, Number: 11";
+        assertEquals(expected, vz.getProducts()[1]);
+    }
+
+
+
+    @Test
+    public void test_use_product2() {
+        Product[] productTest2 = new Product[2];
+        productTest2[0] = new Drink("Coke", 50, "50cl");
+        productTest2[1] = new Food("Pepperoni Pizza", 20, 250);
+        VendingMachineImpl vy = new VendingMachineImpl(productTest2);
+        String expected = " Name: Pepperoni Pizza, Number: 21";
+        assertEquals(expected, vy.getProducts()[1]);
+    }
+
+
+
+    @Test
+    public void test_endSession() {
+        Product[] productTest2 = new Product[2];
+        productTest2[0] = new Drink("Coke", 50, "50cl");
+        productTest2[1] = new Food("Pepperoni Pizza", 20, 250);
+        VendingMachineImpl vm = new VendingMachineImpl(productTest2);
+        Product[] boughtProducts = new Product[3];
+        int expectedChange = 985;
+        vm.addCurrency(1000);
+        vm.addCurrency(5);
+        for (int i =0; i < vm.getProducts().length; i++) {
+            System.out.println(vm.getProducts()[i]);
+        }
+        boughtProducts[0] = vm.request(16);
+        int actualChange = vm.endSession();
+        assertEquals(expectedChange, actualChange);
     }
 
 
