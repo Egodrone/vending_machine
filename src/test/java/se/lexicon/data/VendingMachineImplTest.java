@@ -7,6 +7,7 @@ import org.junit.Test;
 import se.lexicon.model.Drink;
 import se.lexicon.model.Food;
 import se.lexicon.model.Product;
+import se.lexicon.model.Snack;
 
 import static org.junit.Assert.*;
 
@@ -77,7 +78,7 @@ public class VendingMachineImplTest {
         productTest[0] = new Drink("Coke", 50, "50cl");
         productTest[1] = new Drink("Energy Drink", 50, "50cl");
         VendingMachineImpl vz = new VendingMachineImpl(productTest);
-        String expected = " Name: Energy Drink, Number: 11";
+        String expected = " Name: Energy Drink, Number: 16";
         assertEquals(expected, vz.getProducts()[1]);
     }
 
@@ -89,7 +90,7 @@ public class VendingMachineImplTest {
         productTest2[0] = new Drink("Coke", 50, "50cl");
         productTest2[1] = new Food("Pepperoni Pizza", 20, 250);
         VendingMachineImpl vy = new VendingMachineImpl(productTest2);
-        String expected = " Name: Pepperoni Pizza, Number: 21";
+        String expected = " Name: Pepperoni Pizza, Number: 26";
         assertEquals(expected, vy.getProducts()[1]);
     }
 
@@ -108,8 +109,32 @@ public class VendingMachineImplTest {
         for (int i =0; i < vm.getProducts().length; i++) {
             System.out.println(vm.getProducts()[i]);
         }
-        boughtProducts[0] = vm.request(16);
+        boughtProducts[0] = vm.request(21);
         int actualChange = vm.endSession();
+        assertEquals(expectedChange, actualChange);
+    }
+
+
+
+    @Test
+    public void test_request_multiple_products_and_get_change() {
+        Product[] productTestMultiple = new Product[5];
+        productTestMultiple[0] = new Drink("Product 1", 50, "50cl");
+        productTestMultiple[1] = new Food("Product 2", 25, 250);
+        productTestMultiple[2] = new Food("Product 3", 30, 250);
+        productTestMultiple[3] = new Food("Product 4", 40, 250);
+        productTestMultiple[4] = new Snack("Product 5", 20, 90);
+        VendingMachineImpl vg = new VendingMachineImpl(productTestMultiple);
+        Product[] boughtProducts = new Product[5];
+        vg.addCurrency(1000);
+        vg.addCurrency(500);
+        int tmp = 0;
+        for (int i =0; i < vg.getProducts().length; i++) {
+            tmp = Integer.parseInt(vg.getProducts()[i].substring(vg.getProducts()[i].length() - 2));
+            boughtProducts[i] = vg.request(tmp);
+        }
+        int expectedChange = 1400;
+        int actualChange = vg.endSession();
         assertEquals(expectedChange, actualChange);
     }
 
