@@ -4,21 +4,18 @@ package se.lexicon.data;
 
 import org.junit.Before;
 import org.junit.Test;
-import se.lexicon.model.Drink;
-import se.lexicon.model.Food;
-import se.lexicon.model.Product;
-import se.lexicon.model.Snack;
-
+import se.lexicon.model.*;
 import static org.junit.Assert.*;
 
 
 
 public class VendingMachineImplTest {
-
+    private final Sequencer sq = new Sequencer();
 
 
     @Before
     public void setup() {
+        sq.resetId();
     }
 
 
@@ -78,7 +75,7 @@ public class VendingMachineImplTest {
         productTest[0] = new Drink("Coke", 50, "50cl");
         productTest[1] = new Drink("Energy Drink", 50, "50cl");
         VendingMachineImpl vz = new VendingMachineImpl(productTest);
-        String expected = " Name: Energy Drink, Number: 16";
+        String expected = " Name: Energy Drink, Number: 2";
         assertEquals(expected, vz.getProducts()[1]);
     }
 
@@ -90,7 +87,7 @@ public class VendingMachineImplTest {
         productTest2[0] = new Drink("Coke", 50, "50cl");
         productTest2[1] = new Food("Pepperoni Pizza", 20, 250);
         VendingMachineImpl vy = new VendingMachineImpl(productTest2);
-        String expected = " Name: Pepperoni Pizza, Number: 26";
+        String expected = " Name: Pepperoni Pizza, Number: 2";
         assertEquals(expected, vy.getProducts()[1]);
     }
 
@@ -109,7 +106,7 @@ public class VendingMachineImplTest {
         for (int i =0; i < vm.getProducts().length; i++) {
             System.out.println(vm.getProducts()[i]);
         }
-        boughtProducts[0] = vm.request(21);
+        boughtProducts[0] = vm.request(2);
         int actualChange = vm.endSession();
         assertEquals(expectedChange, actualChange);
     }
@@ -128,12 +125,14 @@ public class VendingMachineImplTest {
         Product[] boughtProducts = new Product[5];
         vg.addCurrency(1000);
         vg.addCurrency(500);
-        int tmp = 0;
-        for (int i =0; i < vg.getProducts().length; i++) {
-            tmp = Integer.parseInt(vg.getProducts()[i].substring(vg.getProducts()[i].length() - 2));
-            boughtProducts[i] = vg.request(tmp);
+
+        int count = 0;
+        for (int i = 5; i > 0; i--) {
+            boughtProducts[count] = vg.request(i);
+            count++;
         }
-        int expectedChange = 1400;
+
+        int expectedChange = 1335;
         int actualChange = vg.endSession();
         assertEquals(expectedChange, actualChange);
     }
