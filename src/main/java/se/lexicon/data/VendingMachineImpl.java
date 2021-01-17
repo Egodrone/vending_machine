@@ -117,7 +117,6 @@ public class VendingMachineImpl implements VendingMachine {
                 if (products[i].getProductNumber() == tmp) {
                     System.out.println(" You just bought a " + products[i].getName());
                     tmpProduct[0] = products[i];
-                    //tmpProduct[0] = products[i] + ;
                     continue;
                 }
                 System.out.println(i);
