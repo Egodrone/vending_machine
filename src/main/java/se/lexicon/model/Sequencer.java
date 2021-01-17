@@ -14,7 +14,7 @@ public class Sequencer {
 
 
 
-    static int resetId(){
+    public static int resetId(){
         productId = 0;
         return productId;
     }
